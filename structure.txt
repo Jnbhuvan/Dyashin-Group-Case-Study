@@ -1,0 +1,34 @@
+website-clone/
+│
+├── index.html
+│
+├── sections/
+│   │
+│   ├── navbar/
+│   │   ├── navbar.html
+│   │   ├── navbar.css
+│   │   └── navbar.js
+│   │
+│   ├── hero/
+│   │   ├── hero.html
+│   │   ├── hero.css
+│   │   └── hero.js
+│   │
+│   ├── about/
+│   │   ├── about.html
+│   │   ├── about.css
+│   │   └── about.js
+│   │
+│   ├── services/
+│   │   ├── services.html
+│   │   ├── services.css
+│   │   └── services.js
+│   │
+│   └── footer/
+│       ├── footer.html
+│       ├── footer.css
+│       └── footer.js
+│
+└── assets/
+    ├── images/
+    └── icons/

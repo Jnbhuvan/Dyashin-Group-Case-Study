@@ -1,0 +1,626 @@
+# Modular Website Section Development Prompt
+
+You are working on an existing website project that follows a **modular, section-based HTML/CSS/JavaScript architecture**.
+
+Your task is to create **one specific website section** that can be directly added to the existing project without breaking or modifying other sections.
+
+---
+
+# 1. Existing Project Structure
+
+The project follows this structure:
+
+```text
+website-clone/
+│
+├── index.html
+│
+├── sections/
+│   │
+│   ├── navbar/
+│   │   ├── navbar.html
+│   │   ├── navbar.css
+│   │   └── navbar.js
+│   │
+│   ├── hero/
+│   │   ├── hero.html
+│   │   ├── hero.css
+│   │   └── hero.js
+│   │
+│   ├── about/
+│   │   ├── about.html
+│   │   ├── about.css
+│   │   └── about.js
+│   │
+│   ├── services/
+│   │   ├── services.html
+│   │   ├── services.css
+│   │   └── services.js
+│   │
+│   └── footer/
+│       ├── footer.html
+│       ├── footer.css
+│       └── footer.js
+│
+└── assets/
+    ├── images/
+    └── icons/
+```
+
+---
+
+# 2. Your Task
+
+Create the **`<SECTION_NAME>`** section.
+
+Replace `<SECTION_NAME>` with the actual section name.
+
+Examples:
+
+```text
+navbar
+hero
+about
+services
+footer
+contact
+pricing
+testimonials
+gallery
+```
+
+The requested section must contain exactly **three separate files**:
+
+```text
+sections/<SECTION_NAME>/
+├── <SECTION_NAME>.html
+├── <SECTION_NAME>.css
+└── <SECTION_NAME>.js
+```
+
+Do **not** combine HTML, CSS, and JavaScript into one file.
+
+---
+
+# 3. Important Project Rules
+
+This is an **existing modular project**.
+
+Therefore:
+
+* Do not rewrite the entire project.
+* Do not recreate `index.html`.
+* Do not modify unrelated sections.
+* Do not move existing files.
+* Do not create unnecessary files.
+* Do not introduce frameworks.
+* Do not assume React, Vue, Angular, jQuery, Bootstrap, Tailwind, or other libraries are available.
+* Use only **vanilla HTML, CSS, and JavaScript** unless explicitly requested otherwise.
+* The new section must work independently from unrelated sections.
+* Avoid creating unnecessary dependencies between sections.
+
+The output must be **copy-paste ready**.
+
+---
+
+# 4. HTML Requirements
+
+Create:
+
+```text
+sections/<SECTION_NAME>/<SECTION_NAME>.html
+```
+
+The HTML file must contain **only the markup for this section**.
+
+Do NOT include:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<body>
+```
+
+The section will be dynamically inserted into a container in `index.html`.
+
+For example:
+
+```html
+<div id="<SECTION_NAME>"></div>
+```
+
+## HTML rules
+
+* Use semantic HTML wherever appropriate.
+* Create one clear root element for the section.
+* Give the root element a unique section-specific class or ID.
+* Use section-specific class names.
+* Avoid generic class names such as `.container`, `.title`, `.card`, `.button`, etc. unless they are properly scoped.
+* Do not use inline CSS.
+* Do not include JavaScript inside the HTML.
+* Use accessible HTML where appropriate.
+* Add meaningful `alt` text to images.
+* Use proper heading hierarchy.
+* Make the markup clean and maintainable.
+
+---
+
+# 5. CSS Requirements
+
+Create:
+
+```text
+sections/<SECTION_NAME>/<SECTION_NAME>.css
+```
+
+All styling for this section must be inside this file.
+
+## CSS rules
+
+* Scope the styles to the requested section.
+* Avoid unnecessary global selectors.
+* Do not modify `body`, `html`, `header`, `footer`, etc. globally unless absolutely necessary.
+* Do not use inline styles.
+* Make the section responsive.
+* Support:
+
+  * Mobile
+  * Tablet
+  * Desktop
+* Use clean and maintainable CSS.
+* Avoid unnecessary duplication.
+* Use meaningful class names.
+* Do not overwrite styles belonging to other sections.
+* Do not assume styles from another section exist.
+
+Prefer:
+
+```css
+.hero-section .hero-title {
+    ...
+}
+```
+
+instead of:
+
+```css
+.title {
+    ...
+}
+```
+
+---
+
+# 6. JavaScript Requirements
+
+Create:
+
+```text
+sections/<SECTION_NAME>/<SECTION_NAME>.js
+```
+
+The JavaScript must follow this exact architecture:
+
+```text
+DOMContentLoaded
+        ↓
+Find section container
+        ↓
+Fetch section HTML
+        ↓
+Check response
+        ↓
+Convert response to text
+        ↓
+Insert HTML into container
+        ↓
+Call initialization function
+        ↓
+Find newly inserted elements
+        ↓
+Validate elements
+        ↓
+Add event listeners
+        ↓
+Handle section functionality
+```
+
+Use this structure:
+
+```javascript
+document.addEventListener("DOMContentLoaded", () => {
+    const sectionContainer = document.getElementById("<SECTION_NAME>");
+
+    if (!sectionContainer) {
+        console.error(
+            "<SECTION_NAME> container not found."
+        );
+        return;
+    }
+
+    fetch("sections/<SECTION_NAME>/<SECTION_NAME>.html")
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(
+                    "Failed to load <SECTION_NAME>.html"
+                );
+            }
+
+            return response.text();
+        })
+        .then((data) => {
+            sectionContainer.innerHTML = data;
+
+            initialize<SectionName>();
+        })
+        .catch((error) => {
+            console.error(
+                "<SECTION_NAME> loading error:",
+                error
+            );
+        });
+});
+
+function initialize<SectionName>() {
+    // Find elements created by the HTML
+    // Validate required elements
+    // Add event listeners
+    // Implement section-specific functionality
+}
+```
+
+Adapt:
+
+```text
+<SECTION_NAME>
+<SectionName>
+```
+
+to the actual section name.
+
+For example:
+
+```text
+hero
+Hero
+```
+
+becomes:
+
+```javascript
+initializeHero();
+```
+
+---
+
+# 7. Critical JavaScript Rule
+
+The initialization function MUST execute **only after** the HTML has been inserted.
+
+Correct:
+
+```javascript
+.then((data) => {
+    sectionContainer.innerHTML = data;
+
+    initializeHero();
+});
+```
+
+Incorrect:
+
+```javascript
+initializeHero();
+
+fetch(...);
+```
+
+The reason is that the section's HTML elements do not exist in the DOM until `fetch()` finishes and:
+
+```javascript
+sectionContainer.innerHTML = data;
+```
+
+has executed.
+
+---
+
+# 8. JavaScript Responsibilities
+
+Separate the JavaScript into two responsibilities.
+
+## A. Loading responsibility
+
+```text
+DOMContentLoaded
+→ Find container
+→ Validate container
+→ Fetch HTML
+→ Check response
+→ Convert to text
+→ Insert HTML
+→ Initialize section
+```
+
+## B. Functionality responsibility
+
+```text
+initialize<SectionName>()
+→ Find section elements
+→ Validate required elements
+→ Add event listeners
+→ Implement interactions
+```
+
+Each section must have its own initialization function.
+
+Examples:
+
+```javascript
+initializeNavbar();
+initializeHero();
+initializeAbout();
+initializeServices();
+initializeFooter();
+```
+
+Do not create one large JavaScript function that controls multiple unrelated sections.
+
+---
+
+# 9. Asset Requirements
+
+If the section requires images or icons, use the existing:
+
+```text
+assets/images/
+assets/icons/
+```
+
+directory.
+
+Use relative paths appropriate for the section's HTML location.
+
+For example:
+
+```html
+<img
+    src="../../assets/images/example.jpg"
+    alt="Example"
+>
+```
+
+Do not create duplicate image/icon folders inside the section.
+
+Do not invent external image URLs unless explicitly requested.
+
+If an image is required but no actual project image is available, clearly identify the expected asset filename rather than silently inventing one.
+
+---
+
+# 10. External Dependencies
+
+Do not introduce external libraries or frameworks unless explicitly requested.
+
+Do not add:
+
+```text
+React
+Vue
+Angular
+jQuery
+Bootstrap
+Tailwind
+GSAP
+Swiper
+etc.
+```
+
+unless the project requirements explicitly allow them.
+
+Use:
+
+```text
+HTML
+CSS
+JavaScript
+```
+
+by default.
+
+---
+
+# 11. Existing `index.html` Integration
+
+The existing `index.html` already contains containers for sections.
+
+For the requested section, the container should follow this pattern:
+
+```html
+<div id="<SECTION_NAME>"></div>
+```
+
+If the section is part of the main content, it may instead use:
+
+```html
+<section id="<SECTION_NAME>"></section>
+```
+
+Use whichever structure is consistent with the existing project.
+
+The section's CSS and JavaScript must also be referenced from `index.html`.
+
+For example:
+
+```html
+<link
+    rel="stylesheet"
+    href="sections/<SECTION_NAME>/<SECTION_NAME>.css"
+/>
+```
+
+and:
+
+```html
+<script
+    src="sections/<SECTION_NAME>/<SECTION_NAME>.js"
+></script>
+```
+
+Do not rewrite the existing `index.html`.
+
+Only show the **specific lines that need to be added**.
+
+---
+
+# 12. Independence Requirement
+
+The section must be independent.
+
+For example:
+
+```text
+hero.js
+```
+
+should not contain:
+
+```javascript
+initializeNavbar();
+initializeFooter();
+```
+
+and:
+
+```text
+services.css
+```
+
+should not style:
+
+```css
+.navbar { ... }
+```
+
+unless there is a genuine, explicitly requested dependency.
+
+Each section owns its:
+
+```text
+HTML
+CSS
+JavaScript
+```
+
+---
+
+# 13. Code Quality Requirements
+
+Write production-quality beginner/intermediate-friendly code.
+
+The code should be:
+
+* Clean
+* Readable
+* Modular
+* Maintainable
+* Responsive
+* Properly structured
+* Properly commented where useful
+* Free from unnecessary complexity
+
+Do not over-engineer the solution.
+
+Prefer simple, understandable JavaScript over unnecessarily complex abstractions.
+
+---
+
+# 14. Final Output Format
+
+Return your answer in exactly this order.
+
+## 1. Folder Structure
+
+Show where the new files belong:
+
+```text
+sections/<SECTION_NAME>/
+├── <SECTION_NAME>.html
+├── <SECTION_NAME>.css
+└── <SECTION_NAME>.js
+```
+
+## 2. `<SECTION_NAME>.html`
+
+Provide the **complete HTML file**.
+
+## 3. `<SECTION_NAME>.css`
+
+Provide the **complete CSS file**.
+
+## 4. `<SECTION_NAME>.js`
+
+Provide the **complete JavaScript file**.
+
+## 5. `index.html` Integration
+
+Show only the required additions to `index.html`.
+
+Include:
+
+```html
+<div id="<SECTION_NAME>"></div>
+```
+
+and the required:
+
+```html
+<link rel="stylesheet" ...>
+```
+
+and:
+
+```html
+<script src="..."></script>
+```
+
+Do not reproduce the entire `index.html` unless explicitly requested.
+
+## 6. Brief Explanation
+
+Briefly explain:
+
+1. Where the files should be placed.
+2. How the HTML is dynamically loaded.
+3. When the initialization function executes.
+4. What needs to be added to `index.html`.
+
+Keep the explanation concise and implementation-focused.
+
+---
+
+# 15. Final Verification Before Answering
+
+Before providing the code, verify that:
+
+* [ ] Exactly three section files are provided.
+* [ ] HTML does not contain `<html>`, `<head>`, or `<body>`.
+* [ ] CSS is contained in the section's CSS file.
+* [ ] JavaScript is contained in the section's JS file.
+* [ ] The JavaScript uses `DOMContentLoaded`.
+* [ ] The JavaScript finds the correct container.
+* [ ] `fetch()` uses the correct relative path.
+* [ ] `response.ok` is checked.
+* [ ] `response.text()` is used.
+* [ ] `innerHTML = data` happens before initialization.
+* [ ] The initialization function is section-specific.
+* [ ] Required elements are validated.
+* [ ] Event listeners are added after HTML insertion.
+* [ ] `.catch()` handles loading errors.
+* [ ] CSS is scoped to the section.
+* [ ] The section is responsive.
+* [ ] No unrelated section is modified.
+* [ ] No unnecessary framework/dependency is introduced.
+* [ ] Asset paths are correct relative to the section.
+* [ ] The result is ready to copy into the existing project.
